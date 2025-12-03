@@ -1,0 +1,67 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: false
+
+  flyway:
+    enabled: false
+
+  sql:
+    init:
+      mode: always
+
+  security:
+    user:
+      name: test
+      password: test123
+
+server:
+  port: 8081
+
+logging:
+  level:
+    com.eventmanagement: INFO
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+
+app:
+  jwt:
+    secret: "test-secret-key-1234567890abcdefghijklmnopqrstuvwxyz"
+    expiration: 3600000
+
+test:
+  data:
+    events:
+      count: 5
+    venues:
+      count: 3
+    users:
+      count: 3
